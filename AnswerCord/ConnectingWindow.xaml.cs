@@ -46,7 +46,7 @@ namespace AnswerCord
                 if (!gotOneServer)
                 {
                     _tokenSource.Cancel();
-                    await DoneDispatcher(true);
+                    await DoneDispatcher(DiscordManager.Client.Guilds.Count == 0);
                 }
             });
             //var discordClient = DiscordManager.Client;
