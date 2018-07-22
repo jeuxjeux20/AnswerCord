@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwnserCord", "AwnserCord\AwnserCord.csproj", "{5D1571FD-B1D0-4799-ACDF-70D14AD40D90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnswerCord", "AnswerCord\AnswerCord.csproj", "{5D1571FD-B1D0-4799-ACDF-70D14AD40D90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

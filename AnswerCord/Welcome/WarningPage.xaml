@@ -1,0 +1,26 @@
+﻿<Page x:Class="AnswerCord.Welcome.WarningPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AnswerCord.Welcome"
+      mc:Ignorable="d"  Background="White"
+      d:DesignHeight="304" d:DesignWidth="544"
+      Title="WarningPage">
+
+    <Grid VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="0,0,0,20" HorizontalAlignment="Center" FontSize="28" Foreground="Red" FontWeight="Bold">
+            WARNING!
+        </TextBlock>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="50,0" TextWrapping="Wrap" TextAlignment="Center">
+            This program uses your User Token, this program is therefore considered as a selfbot,
+            which its use can be <Bold>BANNED</Bold> if the software is abusing Discord's API (Example: There is a bug in the program that causes to send too many messages.)
+        </TextBlock>
+        <TextBlock FontSize="24" Foreground="DarkRed" FontWeight="Bold" Grid.Row="2" TextAlignment="Center" Margin="0,20,0,0" >USE IT AT YOUR OWN RISK!</TextBlock>
+    </Grid>
+</Page>

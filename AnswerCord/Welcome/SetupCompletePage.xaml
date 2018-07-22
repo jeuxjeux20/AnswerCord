@@ -1,0 +1,22 @@
+﻿<Page x:Class="AnswerCord.Welcome.SetupCompletePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AnswerCord.Welcome" UseLayoutRounding="True"
+      mc:Ignorable="d" Background="White" SnapsToDevicePixels="True"
+      d:DesignHeight="304" d:DesignWidth="544"
+      Title="SetupCompletePage">
+
+    <Grid Margin="0,35,0,0">
+        <StackPanel>
+            <Image Source="/AnswerCord;component/Images/Check.png" Width="128" Height="128" StretchDirection="DownOnly"/>
+            <TextBlock FontSize="28" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Green">You're all set!</TextBlock>
+            <TextBlock HorizontalAlignment="Center" TextAlignment="Center">
+                You can now use AwnserCord and all of its features!
+                <LineBreak/>
+                <Span FontSize="14" FontWeight="Bold">Have fun in your trivia games! :)</Span>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

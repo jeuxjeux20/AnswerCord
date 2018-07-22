@@ -1,0 +1,26 @@
+﻿<Window x:Class="AnswerCord.WelcomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnswerCord" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" ResizeMode="CanMinimize"
+        Title="Welcome!" Height="420" Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="#FF7289DA">
+            <TextBlock FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="25,0,0,0"><Run Text="Welcome"/><Run Text=" to AwnserCord"/><Run Text="!"/></TextBlock>
+        </Border>
+        <Frame Grid.Row="1" x:Name="MainFrame" Source="WarningPage.xaml" NavigationUIVisibility="Hidden"></Frame>
+        <Border Grid.Row="2" Background="#FF7289DA">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,14,8">
+                <Button MinWidth="100" Margin="0,0,5,0" Content="&lt; Previous" x:Name="PreviousButton" Click="PreviousButton_OnClick"/>
+                <Button MinWidth="100" Content="Next >" x:Name="NextButton" Click="NextButton_OnClick"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

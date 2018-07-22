@@ -1,9 +1,7 @@
-﻿<Application x:Class="AwnserCord.App"
+﻿<Application x:Class="AnswerCord.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:AwnserCord"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:AnswerCord">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>

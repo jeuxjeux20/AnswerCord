@@ -1,0 +1,48 @@
+﻿<Window x:Class="AnswerCord.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnswerCord"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="AnswerCord" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Source="Images/WPF icon.png" Width="64"/>
+            <TextBlock TextWrapping="Wrap" Text="ANSWERCORD" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Margin="10"/>
+        </StackPanel>
+        <UniformGrid Grid.Row="1" Margin="5" Columns="2">
+            <StackPanel Margin="10,0">
+                <Label Content="Server:" HorizontalAlignment="Center"/>
+                <ComboBox x:Name="ServerBox" ItemsSource="{Binding Guilds.Values, Mode=OneWay, UpdateSourceTrigger=Explicit}" SelectedIndex="0" IsEnabled="False" SelectionChanged="ServerBox_SelectionChanged"/>
+            </StackPanel>
+            <StackPanel Margin="10,0">
+                <Label Content="Channel:" HorizontalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding SelectedItem.Channels, ElementName=ServerBox}" SelectedIndex="0" x:Name="ChannelBox" IsEnabled="False"/>
+            </StackPanel>
+        </UniformGrid>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Center" TextAlignment="Center" FontSize="26" LineHeight="24">
+            <Span FontSize="32" FontWeight="Bold">How to use:</Span>
+            <LineBreak/>
+            <Span FontSize="12">Where [N] is the number you want to post:</Span>
+            <LineBreak/>
+            Ctrl + F[N] = <Bold>[N]</Bold>
+            <LineBreak/>
+            Ctrl + Shift + F[N] = <Bold>[N] apg</Bold>
+            <LineBreak/>
+            Ctrl + Alt + F[N] = <Bold>[N]?</Bold>
+            <LineBreak/>
+            Ctrl + Shift + Alt + F[N] = <Bold>[N] apg?</Bold>
+        </TextBlock>
+        <Button Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Padding="5" Click="Button_Click">
+            Change token...
+        </Button>
+        <TextBlock Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5">Made with ❤ by jeuxjeux20</TextBlock>
+    </Grid>
+</Window>

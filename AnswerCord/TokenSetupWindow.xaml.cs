@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AwnserCord
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour TokenSetupWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TokenSetupWindow : NavigationWindow
     {
-        public MainWindow()
+        public TokenSetupWindow()
         {
             InitializeComponent();
         }
