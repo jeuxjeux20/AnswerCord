@@ -22,6 +22,8 @@ namespace AnswerCord
     /// </summary>
     public partial class ConnectingWindow : Window
     {
+        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private bool gotOneServer = false;
         public ConnectingWindow()
         {
             InitializeComponent();
@@ -34,9 +36,19 @@ namespace AnswerCord
             {
                 await DiscordManager.InitialiseWithToken(Properties.Settings.Default.Token, Properties.Settings.Default.AccountType);
             }
-            //ProgressBar.IsIndeterminate = false;
-            //ProgressBar.Value = 50;
-            //StatusText.Text = "Downloading servers...";
+            ProgressBar.IsIndeterminate = false;
+            ProgressBar.Value = 50;
+            StatusText.Text = "Downloading servers...";
+            DiscordManager.Client.GuildAvailable += Client_GuildAvailable;
+            await Task.Run(async () =>
+            {
+                await Task.Delay(6250);
+                if (!gotOneServer)
+                {
+                    _tokenSource.Cancel();
+                    await DoneDispatcher(true);
+                }
+            });
             //var discordClient = DiscordManager.Client;
             //if (discordClient.Guilds.Count == 0)
             //{
@@ -44,35 +56,59 @@ namespace AnswerCord
             //}
             //else
             //{
-                Done();
+
             //}
         }
 
-        // private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
-        //private Task Client_GuildAvailable(DSharpPlus.EventArgs.GuildCreateEventArgs e)
-        //{
-        //    var tokenSourceToken = _tokenSource.Token;
-        //    return Task.Factory.StartNew(async () =>
-        //    {
-        //        await Dispatcher.InvokeAsync(() => { StatusText.Text = $"Downloaded server {e.Client.Guilds.Count}"; });           
-        //        var lastCount = e.Client.Guilds.Count;
-        //        await Task.Delay(250);
-        //        if (lastCount == e.Client.Guilds.Count) // download finished?
-        //        {
-        //            if (tokenSourceToken.IsCancellationRequested)
-        //            {
-        //                return;
-        //            }
-        //            _tokenSource.Cancel();
-        //            DiscordManager.Client.GuildAvailable -= Client_GuildAvailable;
-        //            await Dispatcher.InvokeAsync(Done);
-        //        }
-        //    }, tokenSourceToken);
-        //}
-
-        private void Done()
+        private async Task Client_GuildAvailable(DSharpPlus.EventArgs.GuildCreateEventArgs e)
         {
-            new MainWindow().Show();
+            gotOneServer = true;
+            var tokenSourceToken = _tokenSource.Token;
+            await Task.Factory.StartNew(async () =>
+            {
+                var lastCount = e.Client.Guilds.Count;
+                await Task.Delay(250, tokenSourceToken);
+                if (lastCount == e.Client.Guilds.Count) // download finished?
+                {
+                    if (tokenSourceToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
+                    _tokenSource.Cancel();
+                    DiscordManager.Client.GuildAvailable -= Client_GuildAvailable;
+                    while (true)
+                    {
+                        var count = DiscordManager.Client.Guilds.Values.Count(s => s.Name != null);
+                        if (count != lastCount)
+                        {
+                            await Dispatcher.InvokeAsync(() =>
+                            {
+                                ProgressBar.Value = 50 + ((double)count / lastCount) * 50;
+                                StatusText.Text = $"Getting servers' names ({count}/{lastCount})";
+                            });
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        await Task.Delay(125);
+                    }
+                    await DoneDispatcher();
+                }
+            }, tokenSourceToken);
+        }
+
+        private async Task DoneDispatcher(bool warning = false)
+        {
+            await Dispatcher.InvokeAsync(() =>
+            {
+                Done(warning);
+            });
+        }
+
+        private void Done(bool warning = false)
+        {
+            new MainWindow(warning).Show();
             Close();
         }
     }

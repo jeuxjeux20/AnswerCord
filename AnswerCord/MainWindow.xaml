@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnswerCord"
+        xmlns:discord="clr-namespace:DSharpPlus;assembly=DSharpPlus"
+        xmlns:entities="clr-namespace:DSharpPlus.Entities;assembly=DSharpPlus"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="AnswerCord" Height="450" Width="800">
+        Title="AnswerCord" Height="450" Width="800" d:DataContext="{d:DesignData discord:DiscordClient, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="72"/>
@@ -20,11 +22,26 @@
         <UniformGrid Grid.Row="1" Margin="5" Columns="2">
             <StackPanel Margin="10,0">
                 <Label Content="Server:" HorizontalAlignment="Center"/>
-                <ComboBox x:Name="ServerBox" ItemsSource="{Binding Guilds.Values, Mode=OneWay, UpdateSourceTrigger=Explicit}" SelectedIndex="0" IsEnabled="False" SelectionChanged="ServerBox_SelectionChanged"/>
+                <ComboBox x:Name="ServerBox" ItemsSource="{Binding Guilds.Values, Mode=OneWay}" 
+                          SelectedIndex="0" IsEnabled="True" SelectionChanged="ServerBox_SelectionChanged"
+                          IsTextSearchEnabled="True" TextSearch.TextPath="Name"  IsTextSearchCaseSensitive="False"  IsEditable="True">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="entities:DiscordGuild">
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
             <StackPanel Margin="10,0">
                 <Label Content="Channel:" HorizontalAlignment="Center"/>
-                <ComboBox ItemsSource="{Binding SelectedItem.Channels, ElementName=ServerBox}" SelectedIndex="0" x:Name="ChannelBox" IsEnabled="False"/>
+                <ComboBox ItemsSource="{Binding SelectedItem.Channels, ElementName=ServerBox, Mode=OneWay}" SelectedIndex="0" x:Name="ChannelBox" IsEnabled="True"
+                          IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" IsEditable="True" TextSearch.TextPath="Name">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="entities:DiscordChannel">
+                            <TextBlock>#<Run Text="{Binding Name, Mode=OneWay}"/> - <Run Text="{Binding Type, Mode=OneWay}"/></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
         </UniformGrid>
         <TextBlock Grid.Row="2" HorizontalAlignment="Center" TextAlignment="Center" FontSize="26" LineHeight="24">
