@@ -117,6 +117,7 @@ namespace AnswerCord.Welcome
             _allOk = false;
             _changed = true;
             ChangeNextButtonStatus(false);
+            SetEnabledAll(false);
             var previousLength = TokenTextBox.Text.Length;
             TokenTextBox.Text = new string(TokenTextBox.Text.Where(c => c != '"').ToArray());
             //if (TokenTextBox.Text.Length != previousLength)
@@ -129,6 +130,7 @@ namespace AnswerCord.Welcome
             {
                 TokenStatus.Text = "Token too short";
                 TokenStatus.Style = (Style)TokenStatus.Resources["ErrorStyle"];
+                SetEnabledAll(true);
                 return;
             }
             try
@@ -147,10 +149,17 @@ namespace AnswerCord.Welcome
             }
             finally
             {
+                await Task.Delay(5000);
                 TokenTextBox.IsEnabled = true;
+                SetEnabledAll(true);
             }
         }
 
+        private void SetEnabledAll(bool isEnabled)
+        {
+            UserRadioButton.IsEnabled = isEnabled;
+            BotRadioButton.IsEnabled = isEnabled;
+        }
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             tokenType = TokenType.User;
