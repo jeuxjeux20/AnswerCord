@@ -15,9 +15,9 @@
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Center" Margin="50,0">
             <TextBlock TextAlignment="Center">
-                To send messages on your behalf, we would need your <Bold>token</Bold>.
+                To send messages on your behalf, we would need your bot's <Bold>token</Bold>.
                 <LineBreak/>
-                It works with both User and Bot Tokens ;)
+                It works with bot tokens only.
             </TextBlock>
         </StackPanel>
         <Expander Header="How the hell am I supposed to retrieve it?" HorizontalAlignment="Center" Margin="5" Grid.Row="1" Template="{DynamicResource ExpanderControlTemplate1}" MaxWidth="460">
@@ -261,24 +261,12 @@
                 </ControlTemplate>
             </Expander.Resources>
             <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow">
-                <Bold>1.</Bold> Open the <Span Foreground="#FF7289DA" FontWeight="Bold">Discord</Span> app.
-                <LineBreak/>
-                <Bold>2.</Bold> Press Ctrl+Shift+I
-                <LineBreak/>
-                <Bold>3.</Bold> At the top of the DevTools panel (the "thing" that just appeared), click on the Application tab (it's certainly hidden in the two arrows menu).
-                <LineBreak/>
-                <Bold>4.</Bold> At the left panel, Expand "Local Storage" by clicking on the arrow on the left. Then, click on "https://discordapp.com"
-                <LineBreak/>
-                <Bold>5.</Bold> At the right panel, look at the last row named "token", you should see your token at the right, WOO!!! Copy and paste it into the text box below.
+                Find your bot's token in the developer panel thing.
             </TextBlock>
         </Expander>
         <StackPanel HorizontalAlignment="Center" Grid.Row="2">
             <Label HorizontalAlignment="Center">Token:</Label>
             <TextBox Width="343" x:Name="TokenTextBox" TextChanged="TokenInputChanged"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
-                <RadioButton GroupName="Type" Content="User account" Margin="6,0" Checked="RadioButton_Checked" x:Name="UserRadioButton"/>
-                <RadioButton GroupName="Type" Content="Bot account" Margin="6,0" Checked="RadioButton_Checked_1" x:Name="BotRadioButton"/>
-            </StackPanel>
             <TextBlock x:Name="TokenStatus" HorizontalAlignment="Center">
                 <TextBlock.Resources>
                     <Style TargetType="TextBlock" x:Key="ErrorStyle">

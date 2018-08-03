@@ -12,11 +12,10 @@ namespace AnswerCord
     {
         public static DiscordClient Client { get; private set; }
         private static string _lastUsedToken = null;
-        private static TokenType? lastUsedType = null;
         public static bool HasConnectedSuccessfully { get; private set; } = false;
-        public static async Task InitialiseWithToken(string token, TokenType? type = null)
+        public static async Task InitialiseWithToken(string token)
         {
-            if (_lastUsedToken == token && lastUsedType == type)
+            if (_lastUsedToken == token)
             {
                 return;
             }
@@ -40,27 +39,11 @@ namespace AnswerCord
             Client = new DiscordClient(new DiscordConfiguration
             {
                 Token = token,
-                TokenType = type ?? GetTokenTypeForToken(token)
+                TokenType = TokenType.Bot
             });
             await Client.ConnectAsync();
             _lastUsedToken = token;
             HasConnectedSuccessfully = true;
-        }
-        public static TokenType GetTokenTypeForToken(string token)
-        {
-            if (token.Length < 59)
-            {
-                throw new ArgumentException("Token too short");
-            }
-            switch (token.Length)
-            {
-                case 59:
-                    return TokenType.Bot;
-                case 88:
-                    return TokenType.User;
-                default:
-                    throw new ArgumentException("Invalid token");
-            }
         }
     }
 }

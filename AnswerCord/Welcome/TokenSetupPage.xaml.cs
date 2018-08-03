@@ -27,7 +27,6 @@ namespace AnswerCord.Welcome
         private bool _changed = false;
         private bool firstTimeRadioChecked = true;
         private bool _allOk = DiscordManager.HasConnectedSuccessfully;
-        private TokenType tokenType = Properties.Settings.Default.AccountType;
         private bool shouldNotVerify = false;
 
         public TokenSetupPage()
@@ -38,14 +37,6 @@ namespace AnswerCord.Welcome
 
         private void TokenSetupPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (tokenType == TokenType.Bot)
-            {
-                BotRadioButton.IsChecked = true;
-            }
-            else
-            {
-                UserRadioButton.IsChecked = true;
-            }
             var window = Window.GetWindow(this);
             switch (window)
             {
@@ -70,7 +61,6 @@ namespace AnswerCord.Welcome
         private void UpdateSettings()
         {
             Properties.Settings.Default.Token = TokenTextBox.Text;
-            Properties.Settings.Default.AccountType = tokenType;
             Properties.Settings.Default.IsFirstRun = false;
             Properties.Settings.Default.Save();
         }
@@ -117,7 +107,6 @@ namespace AnswerCord.Welcome
             _allOk = false;
             _changed = true;
             ChangeNextButtonStatus(false);
-            SetEnabledAll(false);
             var previousLength = TokenTextBox.Text.Length;
             TokenTextBox.Text = new string(TokenTextBox.Text.Where(c => c != '"').ToArray());
             //if (TokenTextBox.Text.Length != previousLength)
@@ -130,13 +119,12 @@ namespace AnswerCord.Welcome
             {
                 TokenStatus.Text = "Token too short";
                 TokenStatus.Style = (Style)TokenStatus.Resources["ErrorStyle"];
-                SetEnabledAll(true);
                 return;
             }
             try
             {
                 TokenTextBox.IsEnabled = false;
-                await DiscordManager.InitialiseWithToken(TokenTextBox.Text, tokenType);
+                await DiscordManager.InitialiseWithToken(TokenTextBox.Text);
                 _allOk = true;
                 TokenStatus.Text = "Succesfully connected!";
                 TokenStatus.Style = (Style)TokenStatus.Resources["ValidStyle"];
@@ -151,38 +139,6 @@ namespace AnswerCord.Welcome
             {
                 await Task.Delay(5000);
                 TokenTextBox.IsEnabled = true;
-                SetEnabledAll(true);
-            }
-        }
-
-        private void SetEnabledAll(bool isEnabled)
-        {
-            UserRadioButton.IsEnabled = isEnabled;
-            BotRadioButton.IsEnabled = isEnabled;
-        }
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            tokenType = TokenType.User;
-            if (!firstTimeRadioChecked)
-            {
-                TokenInputChanged(null, null);
-            }
-            else
-            {
-                firstTimeRadioChecked = false;
-            }
-        }
-
-        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
-        {
-            tokenType = TokenType.Bot;
-            if (!firstTimeRadioChecked)
-            {
-                TokenInputChanged(null, null);
-            }
-            else
-            {
-                firstTimeRadioChecked = false;
             }
         }
     }

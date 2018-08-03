@@ -46,17 +46,5 @@ namespace AnswerCord.Properties {
                 this["Token"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("User")]
-        public global::DSharpPlus.TokenType AccountType {
-            get {
-                return ((global::DSharpPlus.TokenType)(this["AccountType"]));
-            }
-            set {
-                this["AccountType"] = value;
-            }
-        }
     }
 }

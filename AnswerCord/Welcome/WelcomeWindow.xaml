@@ -15,7 +15,7 @@
         <Border Grid.Row="0" Background="#FF7289DA">
             <TextBlock FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="25,0,0,0"><Run Text="Welcome"/><Run Text=" to AwnserCord"/><Run Text="!"/></TextBlock>
         </Border>
-        <Frame Grid.Row="1" x:Name="MainFrame" Source="WarningPage.xaml" NavigationUIVisibility="Hidden"></Frame>
+        <Frame Grid.Row="1" x:Name="MainFrame" Source="TokenSetupPage.xaml" NavigationUIVisibility="Hidden"></Frame>
         <Border Grid.Row="2" Background="#FF7289DA">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,14,8">
                 <Button MinWidth="100" Margin="0,0,5,0" Content="&lt; Previous" x:Name="PreviousButton" Click="PreviousButton_OnClick"/>

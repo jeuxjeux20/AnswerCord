@@ -88,7 +88,6 @@ namespace AnswerCord
             {
                 result += " apg";
             }
-
             if (hasQuestionMark)
             {
                 result += "?";

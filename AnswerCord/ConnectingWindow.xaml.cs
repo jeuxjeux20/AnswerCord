@@ -34,7 +34,7 @@ namespace AnswerCord
         {
             if (!DiscordManager.HasConnectedSuccessfully)
             {
-                await DiscordManager.InitialiseWithToken(Properties.Settings.Default.Token, Properties.Settings.Default.AccountType);
+                await DiscordManager.InitialiseWithToken(Properties.Settings.Default.Token);
             }
             ProgressBar.IsIndeterminate = false;
             ProgressBar.Value = 50;

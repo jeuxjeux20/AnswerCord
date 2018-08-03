@@ -8,8 +8,5 @@
     <Setting Name="Token" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="AccountType" Type="DSharpPlus.TokenType" Scope="User">
-      <Value Profile="(Default)">User</Value>
-    </Setting>
   </Settings>
 </SettingsFile>
